@@ -25,9 +25,9 @@ export default function App() {
       const response = await api.post('repositories', {
         title: `Repo ${Date.now()}`,
         url: 'https://github.com/danieldfc/bootcamp-gostack-react-desafio-02',
-        techs: ['ReactJS'],
+        techs: ['ReactJs', 'rocket'],
       });
-
+      
       setRepositories([...repositories, response.data]);
     } catch(err) {
       console.error(err);
@@ -48,17 +48,19 @@ export default function App() {
 
   return (
     <div>
+      <button onClick={handleAddRepository}>Adicionar</button>
       <ul data-testid="repository-list">
         {repositories && repositories.map(repository => (
           <li key={repository.id}>
-            <h1>{repository.title}</h1>
+            <h2>{repository.title}</h2>
+            <a href={repository.url} target="_blanck">LINK REPO</a>
+            Techs:[{repository.techs.map(tech => <p key={tech}>'{tech}',</p>)}]
             <button onClick={() => handleRemoveRepository(repository.id)}>
               Remover
             </button>
           </li>
         ))}
       </ul>
-      <button onClick={handleAddRepository}>Adicionar</button>
     </div>
   );
 }
